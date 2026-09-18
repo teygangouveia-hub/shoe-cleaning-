@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0796ff"><link rel="manifest" href="/manifest.json">
+<title>Shoe Cleaning — Wasaga Beach</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#07090c;color:#f5f7fa;font-family:Inter,system-ui,-apple-system,sans-serif}a{color:inherit}
+.wrap{max-width:1100px;margin:auto;padding:0 20px}.nav{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1b222b}
+.brand{font-weight:950;letter-spacing:-1px;font-size:21px}.brand b{color:#0796ff}.nav a{font-size:14px;text-decoration:none;margin-left:18px;color:#b8c2cd}
+.hero{padding:65px 0 55px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#0796ff;font-weight:900}h1{font-size:clamp(46px,7vw,78px);line-height:.9;letter-spacing:-4px;margin:14px 0 20px}h2{font-size:30px;margin:0 0 18px}p{color:#9ca8b5;line-height:1.6}.hero-card{background:linear-gradient(145deg,#111821,#090c10);border:1px solid #24313e;border-radius:28px;padding:25px;box-shadow:0 20px 60px #0008}.shoe{height:245px;border-radius:22px;background:radial-gradient(circle at 70% 25%,#0b9dff33,transparent 35%),linear-gradient(135deg,#111923,#06080b);display:grid;place-items:center;font-size:100px;filter:drop-shadow(0 20px 25px #000)}
+.btn{display:inline-block;border:0;border-radius:13px;padding:14px 20px;background:#0796ff;color:#fff;font-weight:900;cursor:pointer;text-decoration:none}.btn.secondary{background:#111821;border:1px solid #2a3744}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:#0e141a;border:1px solid #1e2a35;border-radius:18px;padding:20px}.price{font-size:25px;font-weight:950;margin-top:10px}
+section{padding:45px 0}.booking{display:grid;grid-template-columns:1fr .75fr;gap:18px}.panel{background:#0d1319;border:1px solid #202c38;border-radius:22px;padding:24px}label{font-size:13px;font-weight:800;display:block;margin:14px 0 7px}input,select,textarea{width:100%;padding:13px;border-radius:11px;border:1px solid #2a3744;background:#080c10;color:#fff;font:inherit}textarea{min-height:90px}.times{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.time{padding:11px;border-radius:10px;background:#101821;border:1px solid #293746;color:#dce7f2;cursor:pointer}.time.selected{background:#0796ff;border-color:#0796ff}.time.busy{opacity:.3;cursor:not-allowed;text-decoration:line-through}.msg{margin-top:14px;padding:14px;border-radius:12px;background:#0f2418;border:1px solid #225c36;color:#aef0bf;display:none}.error{background:#2b1111;border-color:#693333;color:#ffb3b3}
+footer{border-top:1px solid #1b222b;padding:30px 0;color:#7f8b98;font-size:13px}
+@media(max-width:800px){.hero,.booking{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.grid{grid-template-columns:1fr 1fr}.times{grid-template-columns:repeat(2,1fr)}}
+</style></head>
+<body>
+<div class="wrap">
+<nav class="nav"><div class="brand">SHOE <b>CLEANING</b></div><div><a href="#services">Services</a><a href="/admin.html">Owner</a></div></nav>
+<div class="hero">
+<div><div class="eyebrow">Wasaga Beach • Ontario</div><h1>Clean kicks.<br>Fresh vibes.</h1><p>Professional shoe cleaning with easy online booking. Choose your service, pick an available time, and we'll confirm your appointment.</p><a class="btn" href="#book">Book now</a></div>
+<div class="hero-card"><div class="shoe">👟</div><p><b style="color:#fff">Professional shoe care</b><br>Open daily for appointments from <b style="color:#fff">10:00 AM–9:00 PM</b>.</p></div>
+</div>
+<section id="services"><div class="eyebrow">Services</div><h2>Pick your clean</h2><div class="grid">
+<div class="card"><b>Basic Clean</b><p>Surface clean, midsoles and light stains.</p><div class="price">$20</div></div>
+<div class="card"><b>Deep Clean</b><p>Detailed clean for more heavily worn pairs.</p><div class="price">$30</div></div>
+<div class="card"><b>Premium Clean</b><p>Deep clean plus extra detailing.</p><div class="price">$45</div></div>
+<div class="card"><b>Custom Quote</b><p>Special materials, restoration or unusual jobs.</p><div class="price">Ask</div></div>
+</div></section>
+<section id="book"><div class="eyebrow">Appointments</div><h2>Book your cleaning</h2><div class="booking"><div class="panel">
+<form id="form"><label>Name</label><input id="name" required autocomplete="name"><label>Phone</label><input id="phone" required type="tel" autocomplete="tel"><label>Email (optional)</label><input id="email" type="email" autocomplete="email">
+<label>Service</label><select id="service" required><option value="">Choose one</option><option>Basic Clean</option><option>Deep Clean</option><option>Premium Clean</option><option>Custom Quote</option></select>
+<label>Date</label><input id="date" type="date" required><label>Available times</label><div class="times" id="times"></div><input id="time" type="hidden" required>
+<label>Shoe details</label><textarea id="notes" placeholder="Brand, model, number of pairs, stains, etc."></textarea>
+<button class="btn" style="margin-top:18px;width:100%">Request appointment</button><div id="msg" class="msg"></div></form>
+</div><div class="panel"><h3>How booking works</h3><p>1. Select your service.</p><p>2. Pick a date and an available time.</p><p>3. Send your request.</p><p>4. You'll receive a confirmation after the owner reviews it.</p><hr style="border-color:#202c38"><p><b style="color:#fff">Hours</b><br>10:00 AM–9:00 PM</p><p><b style="color:#fff">Location</b><br>Wasaga Beach, Ontario</p></div></div></section>
+<footer>© 2026 Shoe Cleaning • Wasaga Beach, Ontario</footer></div>
+<script>
+const $=id=>document.getElementById(id), date=$('date'), times=$('times'), time=$('time');
+let today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());date.min=today.toISOString().slice(0,10);
+const slots=['10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM'];
+async function loadSlots(){if(!date.value){times.innerHTML='<span style="color:#8b98a6">Choose a date first.</span>';return} let r=await fetch('/api/availability?date='+encodeURIComponent(date.value));let d=await r.json();times.innerHTML='';slots.forEach(s=>{let b=document.createElement('button');b.type='button';b.className='time'+(d.booked.includes(s)?' busy':'');b.textContent=s;if(!d.booked.includes(s))b.onclick=()=>{document.querySelectorAll('.time').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');time.value=s};else b.disabled=true;times.appendChild(b)})}
+date.onchange=loadSlots;
+$('form').onsubmit=async e=>{e.preventDefault();$('msg').style.display='none';if(!time.value){$('msg').className='msg error';$('msg').textContent='Please choose an available time.';$('msg').style.display='block';return}
+let body={name:$('name').value,phone:$('phone').value,email:$('email').value,service:$('service').value,date:date.value,time:time.value,notes:$('notes').value};
+let r=await fetch('/api/bookings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});let d=await r.json();if(!r.ok){$('msg').className='msg error';$('msg').textContent=d.error||'Could not book this time.'}else{$('msg').className='msg';$('msg').textContent='Appointment request received! Your booking ID is '+d.id+'. We will confirm it soon.';$('form').reset();time.value='';loadSlots()}$('msg').style.display='block'};
+loadSlots();
+</script></body></html>
