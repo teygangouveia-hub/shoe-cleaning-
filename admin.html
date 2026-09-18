@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shoe Cleaning - Owner</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0;padding:20px;color:#111}
+.box{max-width:700px;margin:auto;background:white;padding:25px;border-radius:16px;box-shadow:0 4px 20px #0001}
+h1{margin-top:0}
+input,button,select{width:100%;padding:12px;margin:8px 0;box-sizing:border-box;border-radius:8px;border:1px solid #ccc;font-size:16px}
+button{background:#111;color:white;border:0;font-weight:bold}
+.booking{border:1px solid #ddd;border-radius:12px;padding:15px;margin:12px 0}
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+<div class="box">
+
+<h1>👟 Shoe Cleaning</h1>
+<h2>Owner Dashboard</h2>
+
+<div id="login">
+<p>Enter your owner PIN:</p>
+<input id="pin" type="password" placeholder="Owner PIN">
+<button onclick="login()">Login</button>
+<p id="loginMsg"></p>
+</div>
+
+<div id="dashboard" class="hidden">
+<h2>Bookings</h2>
+<button onclick="loadBookings()">Refresh Bookings</button>
+<div id="bookings">Loading...</div>
+</div>
+
+</div>
+
+<script>
+let token="";
+
+async function login(){
+  const pin=document.getElementById("pin").value;
+  const r=await fetch("/api/admin/login",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({pin})
+  });
+  const d=await r.json();
+
+  if(r.ok){
+    token=d.token;
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
+    loadBookings();
+  }else{
+    document.getElementById("loginMsg").textContent=d.error||"Login failed.";
+  }
+}
+
+async function loadBookings(){
+  const r=await fetch("/api/admin/bookings",{
+    headers:{Authorization:"Bearer "+token}
+  });
+  const data=await r.json();
+  const box=document.getElementById("bookings");
+
+  if(!r.ok){
+    box.textContent=data.error||"Unable to load bookings.";
+    return;
+  }
+
+  if(!data.length){
+    box.innerHTML="<p>No bookings yet.</p>";
+    return;
+  }
+
+  box.innerHTML=data.map(b=>`
+    <div class="booking">
+      <strong>${b.name}</strong><br>
+      📞 ${b.phone}<br>
+      👟 ${b.service}<br>
+      📅 ${b.date}<br>
+      🕐 ${b.time}<br>
+      Status:
+      <select onchange="updateStatus('${b.id}',this.value)">
+        ${["pending","confirmed","completed","cancelled"].map(s=>
+          `<option value="${s}" ${b.status===s?"selected":""}>${s}</option>`
+        ).join("")}
+      </select>
+    </div>
+  `).join("");
+}
+
+async function updateStatus(id,status){
+  await fetch("/api/admin/bookings/"+id,{
+    method:"PATCH",
+    headers:{
+      "Content-Type":"application/json",
+      Authorization:"Bearer "+token
+    },
+    body:JSON.stringify({status})
+  });
+  loadBookings();
+}
+</script>
+
+</body>
+</html>
