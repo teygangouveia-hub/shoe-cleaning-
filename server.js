@@ -1,5 +1,5 @@
 const http=require('http'),fs=require('fs'),path=require('path'),crypto=require('crypto'),url=require('url');
-const PORT=process.env.PORT||3000, PIN=process.env.OWNER_PIN||'2468', DB=path.join(__dirname,'data.json');
+const PORT=process.env.PORT||3000, PIN=process.env.OWNER_PIN||'2468', DB=path.join('/tmp','shoe-cleaning-data.json')
 if(!fs.existsSync(DB))fs.writeFileSync(DB,'[]');
 const read=()=>JSON.parse(fs.readFileSync(DB,'utf8')), write=x=>fs.writeFileSync(DB,JSON.stringify(x,null,2));
 const send=(res,code,obj)=>{res.writeHead(code,{'Content-Type':'application/json','Access-Control-Allow-Origin':'*'});res.end(JSON.stringify(obj))};
@@ -18,4 +18,7 @@ const server=http.createServer(async(req,res)=>{
   send(res,404,{error:'Not found'})
  }catch(e){send(res,500,{error:'Server error'})}
 });
-server.listen(PORT,()=>console.log(`Shoe Cleaning app running on http://localhost:${PORT}`));
+module.exports=(req,res)=>server.emit('request',req,res);
+if(require.main===module){
+  server.listen(PORT,()=>console.log(`Shoe Cleaning app running on http://localhost:${PORT}`));
+}
